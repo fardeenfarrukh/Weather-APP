@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Weather APP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Ensure this path is correct -->
+</head>
+<body>
+    <header>
+        <h1>Weather APP</h1>
+		<p>Get the current weather information for your city!</p>
+    </header>
+    <main>
+		<div class="weather-form">
+			<h2>Check Weather</h2>
+			<form method="POST" action="{{ url_for('get_weather') }}">
+				<input type="text" name="city" placeholder="Enter your city name" required>
+				<input type="submit" value="Get Weather">
+			</form>
+		</div>
+		
+		<div class="weather-info">
+			{% if weather %}
+				<h3>Weather in {{ weather.location.name }}</h3>
+				<p>Temperature: {{ weather.temperature }}</p>
+				<p>Condition: {{ weather.condition }}</p>
+				<img src="{{ weather.icon }}" alt="Weather Icon">
+				<p>Humidity: {{ weather.humidity }}</p>
+				<p>Wind Speed: {{ weather.wind_speed }}</p>
+			{% elif error %}
+				<p>{{ error }}</p>
+			{% endif %}
+		</div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Weather APP. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
